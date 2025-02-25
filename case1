@@ -1,0 +1,96 @@
+package assignment_project;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration; 
+import java.util.List; 
+
+public class Testcase1 {
+    public static void main(String[] args) {
+        
+        //System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+        System.setProperty("webdriver.chrome.driver", "./chromedriver.exe");
+
+        // Initialize WebDriver (ChromeDriver is used here)
+        WebDriver driver = new ChromeDriver();
+
+        try {
+            // Step 1: Open the banking application URL
+            driver.get("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+
+            // Step 2: Select Customer Login
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement customerLoginButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Customer Login')]")));
+            customerLoginButton.click();
+
+            // Step 3: Select the customer "Ron Weasley" from the dropdown
+            WebElement customerDropdown = driver.findElement(By.id("userSelect"));
+            Select selectCustomer = new Select(customerDropdown);
+            selectCustomer.selectByVisibleText("Ron Weasley");
+
+            // Step 4: Click on Login
+            WebElement loginButton = driver.findElement(By.xpath("//button[contains(text(),'Login')]"));
+            loginButton.click();
+
+            // Step 5: Click on the Deposit button, enter an amount, and click on Deposit
+            WebElement depositButton = driver.findElement(By.xpath("//button[contains(text(),'Deposit')]"));
+            depositButton.click();
+
+            WebElement depositAmountInput = driver.findElement(By.xpath("//input[@placeholder='amount']"));
+            depositAmountInput.sendKeys("1000");  // You can change this value as needed
+
+            WebElement depositSubmitButton = driver.findElement(By.xpath("//button[contains(text(),'Deposit')]"));
+            depositSubmitButton.click();
+
+            // Wait for the transaction confirmation (Selenium 4.x uses Duration)
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Deposit Successful')]")));
+
+            // Step 6: Click on the Transactions button
+            WebElement transactionButton = driver.findElement(By.xpath("//button[contains(text(),'Transactions')]"));
+            transactionButton.click();
+
+            // Step 7: Select From and To date using the calendar (assuming calendar element is shown)
+            WebElement fromDateInput = driver.findElement(By.cssSelector("input[ng-model='formData.fromDate']"));
+            fromDateInput.click();
+            WebElement selectFromDate = driver.findElement(By.xpath("//td[contains(text(),'15')]")); // Select a date, e.g., 15
+            selectFromDate.click();
+
+            WebElement toDateInput = driver.findElement(By.cssSelector("input[ng-model='formData.toDate']"));
+            toDateInput.click();
+            WebElement selectToDate = driver.findElement(By.xpath("//td[contains(text(),'20')]")); // Select a date, e.g., 20
+            selectToDate.click();
+
+            // Step 8: Verify if the credit entry is displayed or not
+            List<WebElement> transactionEntries = driver.findElements(By.xpath("//tbody//tr"));
+            boolean isCreditFound = false;
+            for (WebElement entry : transactionEntries) {
+                String entryText = entry.getText();
+                if (entryText.contains("Credit")) {
+                    isCreditFound = true;
+                    break;
+                }
+            }
+
+            // Print result
+            if (isCreditFound) {
+                System.out.println("Credit entry is displayed.");
+            } else {
+                System.out.println("Credit entry is not displayed.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the browser after the test
+            driver.quit();
+        }
+    }
+}
+
+
+
