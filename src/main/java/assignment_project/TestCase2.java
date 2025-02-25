@@ -38,7 +38,6 @@ public class TestCase2 {
             
             driver.findElement(By.xpath("//button[text()='Withdraw']")).click();
 
-
             WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Transaction Failed. You can not withdraw amount more than the balance.')]")));
 
             if (errorMessage.isDisplayed()) {

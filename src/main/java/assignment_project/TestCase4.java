@@ -63,7 +63,6 @@ public class TestCase4 {
             WebElement bookButton = driver.findElement(By.id("book"));
             bookButton.click();
 
-
             WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("booking_success_message")));
             String messageText = successMessage.getText();
 

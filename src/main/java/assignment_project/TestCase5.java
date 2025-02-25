@@ -23,7 +23,6 @@ public class TestCase5 {
             driver.get("https://computer-database.gatling.io/computers?p=0&s=companyName&d=desc");
             driver.manage().window().maximize();
 
-
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             WebElement filterByName = wait.until(ExpectedConditions.elementToBeClickable(By.id("searchbox")));
             filterByName.click();
