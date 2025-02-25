@@ -36,6 +36,7 @@ public class Testcase1 {
             
             WebElement depositButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@ng-class='btnClass2']")));
             depositButton.click();
+            System.out.println ('driver')
             WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
             WebElement amountInputField = driver.findElement(By.xpath("//input[@placeholder='amount']"));
             amountInputField.sendKeys("1000");
@@ -49,7 +50,6 @@ public class Testcase1 {
             WebElement toDateInput = driver.findElement(By.id("end"));
             fromDateInput.sendKeys("2025-02-01"); 
             toDateInput.sendKeys("2025-02-25");  
-
 
             WebElement transactionDetails = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@class='table table-bordered table-striped']")));
 

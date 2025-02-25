@@ -59,7 +59,6 @@ public class TestCase3 {
             Alert alert = wait.until(ExpectedConditions.alertIsPresent());
             String alertMessage = alert.getText();
 
-
             System.out.println("Alert Message: " + alertMessage);
 
 
